@@ -27,7 +27,9 @@ export default {
   filters: {},
   created () { },
   activated () { },
-  mounted () { },
+  mounted () {
+    console.info('mounted')
+   },
   beforeDestroy () { }
 }
 </script>
