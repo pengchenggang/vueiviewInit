@@ -2,6 +2,12 @@
   <div>
 
     <Button type="primary">iviewTest</Button>
+    <Row>
+      <Col span="24">
+      test:
+      <i-switch v-model="test" />
+      </Col>
+    </Row>
   </div>
 </template>
 
@@ -12,6 +18,7 @@ export default {
   components: {},
   data () {
     return {
+      test: false
     }
   },
   watch: {},
