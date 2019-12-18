@@ -1,6 +1,6 @@
-# vueinit
+# vueiviewInit
 
-## vue初始化架子，不带iview，体积小巧轻盈，直接开撸
+## vue+iview 初始化架子，体积小巧轻盈，直接开撸
 
 ### Project setup
 ```
