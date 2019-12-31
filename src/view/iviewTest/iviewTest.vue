@@ -9,16 +9,28 @@
       </Col>
     </Row>
     <div style="width:80%; margin: 0 10% 0 10%;">
-      <h2>1.本人的婚姻情况</h2>
+      <h2>7.表格标题</h2>
+      <FormZen :formRows="row7"></FormZen>
+      <h2>1.表格标题</h2>
       <FormZen :formRows="row1"></FormZen>
+      <h2>2-1.表格标题</h2>
+      <FormZen :formRows="row2_1"></FormZen>
+      <h2>2-2.表格标题</h2>
+      <FormZen :formRows="row2_2"></FormZen>
+      <h2>3-1.表格标题</h2>
+      <FormZen :formRows="row3_1"></FormZen>
+      <h2>6-2.表格标题</h2>
+      <FormZen :formRows="row6_2"></FormZen>
+
     </div>
 
+    <div style="height:100px;"></div>
   </div>
 </template>
 
 <script>
 import FormZen from '@/components/FormZen'
-import { row1 } from './etc'
+import { row1, row2_1, row2_2, row3_1, row6_2, row7 } from './etc'
 export default {
   name: 'iviewTest',
   props: {},
@@ -28,6 +40,11 @@ export default {
   data () {
     return {
       row1,
+      row2_1,
+      row2_2,
+      row3_1,
+      row6_2,
+      row7,
       test: false
     }
   },
@@ -45,4 +62,7 @@ export default {
 </script>
 
 <style lang="less">
+h2 {
+  margin: 20px 0 !important;
+}
 </style>

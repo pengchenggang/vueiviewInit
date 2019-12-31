@@ -48,5 +48,6 @@ export default {
 .formZenTable {
   border-right: 1px solid #666666;
   border-bottom: 1px solid #666666;
+  text-align: left;
 }
 </style>

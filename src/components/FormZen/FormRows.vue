@@ -3,7 +3,7 @@
     <!-- {{ innerFormRows.rows }} -->
     <div v-for="(items,index) in innerFormRows.rows"
          :key="index"
-         :style="items.flex ? { flex: items.flex } : {}"
+         :style="getFormZenRowStyle(items)"
          class="formZenRow">
       <!-- {{ items }} -->
       <!-- flex01 就是 内容宽度 不进行弹性 -->
@@ -22,8 +22,11 @@
                             :itemContent="col.itemContent"
                             :hideContent="col.hideContent"
                             :hideHeader="col.hideHeader"
+                            :itemsDirection="items.direction"
+                            :disabled="col.disabled"
                             :type="col.type"
                             :arr="col.arr"
+                            :global="innerFormRows.global"
                             :slotName="col.slot">
             <template :slot="col.slot">
               <slot :name="col.slot"></slot>
@@ -76,8 +79,19 @@ export default {
     }
   },
   methods: {
-    getFormZenItemStyle (col) {
+    getFormZenRowStyle (items) {
       const out = {}
+      if (items.flex) {
+        out.flex = items.flex
+      }
+      if (items.direction === 'column') {
+        out.flex = '1 1'
+      }
+      return out
+    },
+    getFormZenItemStyle (col) {
+
+      const out = { minHeight: this.innerFormRows.global.minHeight }
       if (col.flex) {
         out.flex = col.flex
       }
@@ -119,6 +133,7 @@ export default {
 .formZenRow {
   display: -webkit-flex; /* Safari */
   display: flex;
+  flex: 1 1; // 解决套表格时候 不自动撑开
 }
 .formZenItem {
   display: flex;
@@ -129,6 +144,6 @@ export default {
   // background-color: aqua;
 }
 .formZenItemFlex0 {
-  flex: 0 1 !important;
+  flex: 0 1 auto !important;
 }
 </style>

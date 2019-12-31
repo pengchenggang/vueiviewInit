@@ -3,7 +3,7 @@ export default {
     {
       cols: [
         {
-          headerTitle: '婚姻现状:',
+          headerTitle: '标题名称1:',
           type: 'checkbox',
           arr: getHunyinxianzhuang()
         },// 第一列
@@ -12,7 +12,7 @@ export default {
     {
       cols: [
         {
-          headerTitle: '婚姻变化情况',
+          headerTitle: '标题名称2',
           hideContent: true,
           flex01: true
         },
@@ -37,9 +37,9 @@ export default {
                     {
                       cols: [
                         {
-                          headerTitle: '有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 有变化 ',
+                          headerTitle: '变化 ',
                           headerWidth: '100px',
-                          colWidth: '10%',
+                          colWidth: '10%', // 单框微调右侧挤一些
                           flex: 'auto',
                           type: 'checkbox',
                           arr: getHunyinxianzhuang()
@@ -48,24 +48,14 @@ export default {
                           span: true,
                           rows: [
                             {
+                              direction: 'column',
                               cols: [
                                 {
-                                  headerTitle: '变化时间',
-                                  headerWidth: '100%',
-                                  hideContent: true
+                                  headerTitle: '标题名称3',
+                                  type: 'input',
                                 },
                               ],
                             },
-                            {
-                              flex: '1 1',
-                              cols: [
-                                {
-                                  headerTitle: '变化时间bottom',
-                                  hideHeader: true,
-                                  type: 'date',
-                                }
-                              ]
-                            }
                           ]
                         },
                       ]
@@ -85,36 +75,9 @@ export default {
 
 function getHunyinxianzhuang () {
   return [
-    { code: "未婚", codeName: "未婚" },
-    { code: "已婚", codeName: "已婚" },
-    { code: "离异", codeName: "离异" },
-    { code: "丧偶", codeName: "丧偶" },
+    { code: "选项1", codeName: "选项1" },
+    { code: "选项2", codeName: "选项2" },
+    { code: "选项3", codeName: "选项3" },
+    { code: "选项4", codeName: "选项4" },
   ]
 }
-
-
-
-// {
-      //   span: true,
-      //   rows: [
-      //     [
-      //       {
-      //         headerTitle: '姓名111:',
-      //         type: 'input'
-      //       },// 第一列
-      //       {
-      //         headerTitle: '姓名2:',
-      //         type: 'input'
-      //       },// 第一列
-      //     ]
-      //   ]
-      // },
-
-      // {
-      //   span: true,
-      //   arr: []
-      // },
-      // {
-      //   span: true,
-      //   arr: []
-      // },

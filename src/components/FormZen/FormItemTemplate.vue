@@ -1,13 +1,18 @@
 <template>
-  <div class="FormItemTemplate">
+  <div :style="getFormItemTemplateStyle()"
+       class="FormItemTemplate">
     <div v-if="!hideHeader"
-         :style="{ width: headerWidth}"
+         :style="getFormItemHeaderStyle()"
          class="FormItemHeader">
       {{ this.headerTitle }}
     </div>
     <div v-if="!hideContent"
+         :class="FormItemContentClasses"
          class="FormItemContent">
 
+      <template v-if="type==='text'">
+        {{ this.itemContent}}
+      </template>
       <Input v-if="type==='input'"
              v-model="innerValue"
              placeholder="请输入"
@@ -50,6 +55,20 @@ import dateSingle from './components/dateSingle'
 export default {
   name: 'FormItemTemplate',
   props: {
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    global: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
+    itemsDirection: {
+      type: String,
+      default: 'rows'
+    },
     arr: {
       type: Array,
       default () {
@@ -95,8 +114,31 @@ export default {
     }
   },
   watch: {},
-  computed: {},
-  methods: {},
+  computed: {
+    FormItemContentClasses () {
+      return {
+        'FormItemContentDisabled': this.disabled
+      }
+    }
+  },
+  methods: {
+    getFormItemTemplateStyle () {
+      let out = {}
+      if (this.itemsDirection === 'column') {
+        out.flexDirection = 'column'
+      }
+      return out
+    },
+    getFormItemHeaderStyle () {
+      let out = { width: this.headerWidth }
+      if (this.itemsDirection === 'column') {
+        out.width = 'inherit'
+        console.info('this.lobal', this.global)
+        out.minHeight = this.global.minHeight
+      }
+      return out
+    }
+  },
   filters: {},
   created () { },
   activated () { },
@@ -106,6 +148,9 @@ export default {
 </script>
 
 <style lang="less" scoped>
+.FormItemContentDisabled {
+  background-color: #f2f2f2;
+}
 .FormItemHeader {
   // flex: 1 1;
   // width: 100px;
