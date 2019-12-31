@@ -21,7 +21,8 @@ export default {
                       cols: [
                         {
                           headerTitle: '432432',
-                          type: 'input'
+                          type: 'radio',
+                          arr: getCheckboxArr(10)
                         }
                       ]
                     },
