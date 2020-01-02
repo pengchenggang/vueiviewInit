@@ -14,7 +14,7 @@
            class="formZenItem">
         <!-- {{col}} -->
         <template v-if="col.span">
-          <FormRows :formRows="{rows:[...col.rows]}"></FormRows>
+          <FormRows :formRows="{global: innerFormRows.global,rows:[...col.rows]}"></FormRows>
         </template>
         <template v-if="!col.span">
           <FormItemTemplate :headerTitle="col.headerTitle"
@@ -103,10 +103,17 @@ export default {
     updateFormRows () {
       // console.info('props this.formRows', this.formRows)
       // console.info('Object.assign(defaultFormRows, this.formRows', Object.assign(defaultFormRows, this.formRows))
+
       this.innerFormRows = {
         global: { ...defaultFormRows.global, ...this.formRows.global },
         rows: { ...defaultFormRows.rows, ...this.formRows.rows }
       }
+
+      // this.innerFormRows = { ...defaultFormRows, ...this.formRows }
+      // this.innerFormRows = JSON.parse(JSON.stringify(this.innerFormRows))
+
+      // console.info('this.formRows', this.formRows)
+
       // console.info('this.innerFormRows', this.innerFormRows)
     },
     init () {

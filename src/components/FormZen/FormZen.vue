@@ -1,6 +1,11 @@
 <template>
   <div class="formZenTable">
-    <FormRows :formRows="formRows"></FormRows>
+    <FormRows :formRows="formRows">
+      <template v-for="slotNameItem in slotArr"
+                :slot="slotNameItem">
+        <slot :name="slotNameItem"></slot>
+      </template>
+    </FormRows>
   </div>
 </template>
 
@@ -22,7 +27,7 @@ export default {
   },
   data () {
     return {
-
+      slotArr: []
     }
   },
   watch: {
@@ -30,11 +35,27 @@ export default {
   },
   computed: {},
   methods: {
-
+    getSlotArr (rows) {
+      rows.forEach(item => {
+        console.info('item', item)
+        item.cols.forEach(col => {
+          if (col.type === 'slot') {
+            if (col.slot) {
+              this.slotArr.push(col.slot)
+            }
+          }
+          if (col.span) {
+            this.getSlotArr(col.rows)
+          }
+        })
+      })
+      // console.info('this.slotArr', this.slotArr)
+    }
   },
   filters: {},
   created () {
-
+    console.info('this.formRows', this.formRows)
+    this.getSlotArr(this.formRows.rows)
   },
   activated () { },
   mounted () {

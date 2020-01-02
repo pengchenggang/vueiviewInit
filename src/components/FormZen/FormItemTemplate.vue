@@ -42,7 +42,9 @@
                             max-height="58px"
                             v-model="formData.emigDate"
                             :leftDate="basicInfo.reportDate"></dateSingle> -->
-
+      <radioGroupZen v-if="type==='radioZen'"
+                     :dataArr="arr"
+                     v-model="innerValue"></radioGroupZen>
       <slot v-if="type==='slot'"
             :name="slotName"></slot>
       <!-- {{ this.itemContent }} -->
@@ -52,6 +54,7 @@
 
 <script>
 import dateSingle from './components/dateSingle'
+import radioGroupZen from './components/radioGroupZen'
 export default {
   name: 'FormItemTemplate',
   props: {
@@ -105,7 +108,8 @@ export default {
     }
   },
   components: {
-    dateSingle
+    dateSingle,
+    radioGroupZen
   },
   data () {
     return {
@@ -133,7 +137,7 @@ export default {
       let out = { width: this.headerWidth }
       if (this.itemsDirection === 'column') {
         out.width = 'inherit'
-        console.info('this.lobal', this.global)
+        // console.info('this.global', this.global)
         out.minHeight = this.global.minHeight
       }
       return out
@@ -173,7 +177,7 @@ export default {
 .FormItemTemplate {
   display: flex;
   flex: 1 1;
-  flex-wrap: wrap;
+  flex-wrap: nowrap;
   // align-items: center;
   // border: 3px solid red;
   // background-color: bisque;
