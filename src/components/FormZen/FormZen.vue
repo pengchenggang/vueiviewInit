@@ -4,9 +4,9 @@
       <slot name="top"
             :data="innerFormData"
             :refs="$refs"></slot>
-      <Button type="primary"
+      <!-- <Button type="primary"
               @click="btnClickHandle"
-              style="float:right;">确定</Button>
+              style="float:right;">确定</Button> -->
       <div style="clear:both;"></div>
     </div>
     <Form ref="formRef"
@@ -83,19 +83,19 @@ export default {
       this.$emit('update:formData', { ...this.innerFormData })
       console.info('{ ...this.innerFormData }', { ...this.innerFormData })
     },
-    btnClickHandle () {
-      console.info('formData', this.innerFormData)
-      // console.info('btnClickHandle')
-      // console.info('this.$refs[formRef]', this.$refs['formRef'])
-      this.$refs['formRef'].validate((valid) => {
-        // console.info('valid', valid)
-        if (valid) {
-          this.$Message.success('Success!');
-        } else {
-          this.$Message.error('Fail!');
-        }
-      })
-    },
+    // btnClickHandle () {
+    //   console.info('formData', this.innerFormData)
+    //   // console.info('btnClickHandle')
+    //   // console.info('this.$refs[formRef]', this.$refs['formRef'])
+    //   this.$refs['formRef'].validate((valid) => {
+    //     // console.info('valid', valid)
+    //     if (valid) {
+    //       this.$Message.success('Success!');
+    //     } else {
+    //       this.$Message.error('Fail!');
+    //     }
+    //   })
+    // },
     getSlotArr (rows) {
       rows.forEach(item => {
         // console.info('item', item)
