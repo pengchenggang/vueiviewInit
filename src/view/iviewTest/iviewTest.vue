@@ -22,13 +22,14 @@
       <h2>1.表格标题</h2>
       <FormZen :formRows="row1"></FormZen> -->
       <h2>2-1.表格标题</h2>
-      <FormZen :formRows="row2_1"
+      <FormZen ref="formZenRef"
+               :formRows="row2_1"
                :formData.sync="row2_1Data"
                :formRules="row2_1Rules">
         <template slot="top"
-                  slot-scope="{ data, refs }">
+                  slot-scope="{ data, validate }">
           <Button type="primary"
-                  @click="btnClickHandle(data, refs)"
+                  @click="btnClickHandle(data, validate)"
                   style="float:left;">确定1</Button>
         </template>
         <template slot="key3">
@@ -76,17 +77,13 @@ export default {
   watch: {},
   computed: {},
   methods: {
-    btnClickHandle (data, refs) {
-      console.info('btnClickHandle', data)
-      console.info('formRef', refs)
-      refs.formRef.validate((valid) => {
-        // console.info('valid', valid)
+    btnClickHandle (data, validate) {
+      validate(valid => {
         if (valid) {
-          this.$Message.success('Success!');
-        } else {
-          this.$Message.error('Fail!');
+          this.$Message.success('Success!')
         }
       })
+
     }
   },
   filters: {},

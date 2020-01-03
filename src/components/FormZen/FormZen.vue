@@ -2,6 +2,7 @@
   <div>
     <div style="margin-bottom:5px;">
       <slot name="top"
+            :validate="validate"
             :data="innerFormData"
             :refs="$refs"></slot>
       <!-- <Button type="primary"
@@ -10,6 +11,9 @@
       <div style="clear:both;"></div>
     </div>
     <Form ref="formRef"
+          @submit.native.prevent
+          @on-validate="onValidate"
+          :show-message="false"
           :model="innerFormData"
           :rules="formRules">
       <div class="formZenTable">
@@ -33,6 +37,12 @@ import FormRows from './FormRows'
 export default {
   name: 'FormZen',
   props: {
+    formErrs: {
+      type: Array,
+      default () {
+        return []
+      }
+    },
     formData: {
       type: Object,
       default () {
@@ -58,11 +68,29 @@ export default {
   },
   data () {
     return {
+      InnerFormErrs: [],
       slotArr: [],
       innerFormData: {}
     }
   },
   watch: {
+    // formErrs: {
+    //   deep: true,
+    //   immediate: true,
+    //   handler () {
+    //     this.InnerFormErrs = { ...this.formErrs }
+    //     // this.$nextTick(() => {
+    //     //   this.InnerFormErrs = { ...this.formErrs }
+    //     //   console.info('this.InnerFormErrs', this.InnerFormErrs)
+    //     // })
+    //   }
+    // },
+
+    // 错误信息 外层 只需要置空 所以就不进行 深度监听 
+    // formErrs (val) {
+    //   console.info('formErrs (val) ', val)
+    //   this.InnerFormErrs = []
+    // },
     formData: {
       deep: true,
       immediate: true,
@@ -76,6 +104,32 @@ export default {
   },
   computed: {},
   methods: {
+    validate (callback) {
+
+      let validT = false
+      this.InnerFormErrs = []
+      this.$refs.formRef.validate((valid) => { validT = valid })
+
+      this.$nextTick(() => {
+        console.info('this.InnerFormErrs', this.InnerFormErrs)
+        if (!validT) { this.showErrorTips(this.InnerFormErrs.join('<br>')) }
+        callback && callback(validT)
+      })
+    },
+    showErrorTips (str) {
+      this.$Message.error({
+        closable: true,
+        duration: 0, // 3,
+        content: str
+      })
+    },
+    onValidate (prop, status, error) {
+      console.info('onValidate (prop, status, error)', prop, status, error)
+      if (!status) {
+        this.InnerFormErrs.push(error)
+        // this.$emit("update:formErrs", [...this.InnerFormErrs])
+      }
+    },
     getInnerValue (keyName, val) {
       // console.info('getInnerValue', keyName, val)
       // this.formData[keyName] = val
@@ -126,7 +180,25 @@ export default {
   beforeDestroy () { }
 }
 </script>
+<style lang="less">
+// 全局错误提示信息 位置修改
+.ivu-message-error {
+  .ivu-icon {
+    vertical-align: top !important;
+    margin-top: 2px;
+  }
+  span {
+    display: inline-block;
+    text-align: left;
+  }
+}
 
+// end 全局错误信息
+
+.FormItemContent .ivu-form-item {
+  margin-bottom: 0;
+}
+</style>
 <style lang="less" scoped>
 .formZenTable {
   border-right: 1px solid #666666;

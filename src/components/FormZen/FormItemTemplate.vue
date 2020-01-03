@@ -5,54 +5,59 @@
     <div v-if="!hideHeader"
          :style="getFormItemHeaderStyle()"
          class="FormItemHeader">
-      {{ this.headerTitle }}
+      <span v-if="required"
+            style="color:red; margin-right:3px; font-size:16px;">*</span>
+      <span v-html="headerTitle"></span>
+      <!-- {{ this.headerTitle }} -->
     </div>
 
     <div v-if="!hideContent"
-         :class="FormItemContentClasses"
-         class="FormItemContent">
-
+         :class="{'max': max}"
+         class="FormItemContentWrap">
       <FormItem :prop="keyName">
+        <div :class="FormItemContentClasses"
+             class="FormItemContent">
 
-        <template v-if="type==='text'">
-          {{ this.itemContent}}
-        </template>
-        <Input v-if="type==='input'"
-               v-model="innerValue"
-               placeholder="请输入"
-               style="width: 100%" />
+          <template v-if="type==='text'">
+            {{ this.itemContent}}
+          </template>
+          <Input v-if="type==='input'"
+                 v-model="innerValue"
+                 placeholder="请输入"
+                 style="width: 100%" />
 
-        <RadioGroup v-if="type==='radio'"
-                    v-model="innerValue">
-          <Radio v-for="(item,index) in arr"
-                 :key="index"
-                 :label="item.code">{{item.codeName}}</Radio>
-        </RadioGroup>
+          <RadioGroup v-if="type==='radio'"
+                      v-model="innerValue">
+            <Radio v-for="(item,index) in arr"
+                   :key="index"
+                   :label="item.code">{{item.codeName}}</Radio>
+          </RadioGroup>
 
-        <CheckboxGroup v-if="type==='checkbox'"
-                       v-model="innerValueArr">
-          <Checkbox v-for="(item,index) in arr"
-                    :key="index"
-                    :label="item.code">
-            {{item.codeName}}
-          </Checkbox>
-        </CheckboxGroup>
+          <CheckboxGroup v-if="type==='checkbox'"
+                         v-model="innerValueArr">
+            <Checkbox v-for="(item,index) in arr"
+                      :key="index"
+                      :label="item.code">
+              {{item.codeName}}
+            </Checkbox>
+          </CheckboxGroup>
 
-        <dateSingle v-if="type==='date'"
-                    style="height:32px;"
-                    v-model="innerValue"></dateSingle>
-        <!-- <dateSingle no-border
+          <dateSingle v-if="type==='date'"
+                      style="height:32px;"
+                      v-model="innerValue"></dateSingle>
+          <!-- <dateSingle no-border
                             :disabled="formDisabled"
                             max-height="58px"
                             v-model="formData.emigDate"
                             :leftDate="basicInfo.reportDate"></dateSingle> -->
-        <radioGroupZen v-if="type==='radioZen'"
-                       :dataArr="arr"
-                       v-model="innerValue"></radioGroupZen>
-        <slot v-if="type==='slot'"
-              :name="slotName"></slot>
-        <!-- {{ this.itemContent }} -->
+          <radioGroupZen v-if="type==='radioZen'"
+                         :dataArr="arr"
+                         v-model="innerValue"></radioGroupZen>
+          <slot v-if="type==='slot'"
+                :name="slotName"></slot>
+          <!-- {{ this.itemContent }} -->
 
+        </div>
       </FormItem>
     </div>
 
@@ -66,6 +71,14 @@ import { oneOf } from './libs/tools'
 export default {
   name: 'FormItemTemplate',
   props: {
+    required: {
+      type: Boolean,
+      defalut: false
+    },
+    max: {
+      type: Boolean,
+      defalut: false
+    },
     formValue: {
       type: String,
       defautl: ''
@@ -186,6 +199,44 @@ export default {
 }
 </script>
 
+<style lang="less">
+.max {
+  .FormItemContent {
+    padding: 0 !important;
+    .ivu-date-picker {
+      height: 100% !important;
+      .ivu-icon {
+        top: calc(~"50% - 16px");
+      }
+    }
+    .ivu-input-wrapper {
+      height: 100%;
+      .ivu-input {
+        height: 100%;
+      }
+    }
+  }
+}
+.FormItemContentWrap {
+  display: flex;
+  flex: 1 1 auto;
+  .ivu-form-item-error {
+    border: 1px solid red;
+    .ivu-input {
+      border: 1px solid #dcdee2;
+    }
+  }
+  .ivu-form-item {
+    display: flex;
+    flex: 1 1 auto;
+    margin-bottom: 0;
+    .ivu-form-item-content {
+      display: flex;
+      flex: 1 1 auto;
+    }
+  }
+}
+</style>
 <style lang="less" scoped>
 .FormItemContentDisabled {
   background-color: #f2f2f2;
@@ -199,6 +250,10 @@ export default {
   align-items: center;
   justify-content: center;
   background-color: #f2f2f2;
+  span {
+    font-size: 14px;
+    font-weight: bold;
+  }
 }
 .FormItemContent {
   flex: 1 1; // flex属性是flex-grow, flex-shrink 和 flex-basis的简写，默认值为0 1 auto。后两个属性可选。
