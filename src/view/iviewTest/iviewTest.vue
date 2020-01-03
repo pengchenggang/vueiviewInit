@@ -9,21 +9,35 @@
       </Col>
     </Row>
     <div style="width:80%; margin: 0 10% 0 10%;">
-      <h2>basic.表格标题</h2>
+      <!-- <h2>basic.表格标题</h2>
       <FormZen :formRows="basic">
         <template slot="slotName1">
           <div>
             123123
           </div>
         </template>
-      </FormZen>
+      </FormZen> -->
       <!-- <h2>7.表格标题</h2>
       <FormZen :formRows="row7"></FormZen>
       <h2>1.表格标题</h2>
-      <FormZen :formRows="row1"></FormZen>
+      <FormZen :formRows="row1"></FormZen> -->
       <h2>2-1.表格标题</h2>
-      <FormZen :formRows="row2_1"></FormZen>
-      <h2>2-2.表格标题</h2>
+      <FormZen :formRows="row2_1"
+               :formData.sync="row2_1Data"
+               :formRules="row2_1Rules">
+        <template slot="top"
+                  slot-scope="{ data, refs }">
+          <Button type="primary"
+                  @click="btnClickHandle(data, refs)"
+                  style="float:left;">确定1</Button>
+        </template>
+        <template slot="key3">
+          <Input v-model="row2_1Data.key3"
+                 placeholder="请输入"
+                 style="width: 100%" />
+        </template>
+      </FormZen>
+      <!-- <h2>2-2.表格标题</h2>
       <FormZen :formRows="row2_2"></FormZen>
       <h2>3-1.表格标题</h2>
       <FormZen :formRows="row3_1"></FormZen>
@@ -38,7 +52,7 @@
 
 <script>
 import FormZen from '@/components/FormZen'
-import { row1, row2_1, row2_2, row3_1, row6_2, row7, basic } from './etc'
+import { row1, row2_1, row2_1Rules, row2_1Data, row2_2, row3_1, row6_2, row7, basic } from './etc'
 export default {
   name: 'iviewTest',
   props: {},
@@ -50,6 +64,8 @@ export default {
       basic,
       row1,
       row2_1,
+      row2_1Rules,
+      row2_1Data,
       row2_2,
       row3_1,
       row6_2,
@@ -59,7 +75,20 @@ export default {
   },
   watch: {},
   computed: {},
-  methods: {},
+  methods: {
+    btnClickHandle (data, refs) {
+      console.info('btnClickHandle', data)
+      console.info('formRef', refs)
+      refs.formRef.validate((valid) => {
+        // console.info('valid', valid)
+        if (valid) {
+          this.$Message.success('Success!');
+        } else {
+          this.$Message.error('Fail!');
+        }
+      })
+    }
+  },
   filters: {},
   created () { },
   activated () { },

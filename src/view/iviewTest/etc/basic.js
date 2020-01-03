@@ -90,6 +90,7 @@ function getR1C1_R2C1 () {
 }
 function getR1C1_Row1 () {
   return {
+    minHeight: '100px',
     cols: [
       getR1C1_R1C1(),
       getR1C1_R1C2(),
@@ -112,7 +113,8 @@ function getR1C1_R1C2 () {
 }
 function getR1C1_R1C1 () {
   return {
-    headerTitle: '标题名称',
+    headerTitle: '标题名称1',
+    key: 'key1',
     type: 'radioZen',
     arr: getCheckboxArr(2)
   }

@@ -14,7 +14,9 @@
            class="formZenItem">
         <!-- {{col}} -->
         <template v-if="col.span">
-          <FormRows :formRows="{global: innerFormRows.global,rows:[...col.rows]}"></FormRows>
+          <FormRows @getInnerValue="getInnerValue"
+                    :formData="innerFormData"
+                    :formRows="{global: innerFormRows.global,rows:[...col.rows]}"></FormRows>
         </template>
         <template v-if="!col.span">
           <FormItemTemplate :headerTitle="col.headerTitle"
@@ -26,8 +28,11 @@
                             :disabled="col.disabled"
                             :type="col.type"
                             :arr="col.arr"
+                            :keyName="col.key"
                             :global="innerFormRows.global"
-                            :slotName="col.slot">
+                            :slotName="col.slot"
+                            @getInnerValue="getInnerValue"
+                            :formValue="formData[col.key]">
             <template :slot="col.slot">
               <slot :name="col.slot"></slot>
             </template>
@@ -45,6 +50,12 @@ import { defaultFormRows } from './etc'
 export default {
   name: 'FormRows',
   props: {
+    formData: {
+      type: Object,
+      default () {
+        return {}
+      }
+    },
     formRows: {
       type: Object,
       default () {
@@ -79,6 +90,9 @@ export default {
     }
   },
   methods: {
+    getInnerValue (keyName, val) {
+      this.$emit('getInnerValue', keyName, val)
+    },
     getFormZenRowStyle (items) {
       const out = {}
       if (items.flex) {
@@ -86,6 +100,9 @@ export default {
       }
       if (items.direction === 'column') {
         out.flex = '1 1'
+      }
+      if (items.minHeight) {
+        out.minHeight = items.minHeight
       }
       return out
     },

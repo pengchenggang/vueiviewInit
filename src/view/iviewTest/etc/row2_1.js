@@ -3,11 +3,13 @@ export default {
     {
       cols: [
         {
-          headerTitle: '标题名称:',
+          headerTitle: 'key1:',
+          key: 'key1',
           type: 'input'
         },
         {
-          headerTitle: '标题名称:',
+          headerTitle: 'key2:',
+          key: 'key2',
           type: 'date'
         }
       ]
@@ -15,29 +17,19 @@ export default {
     {
       cols: [
         {
-          headerTitle: '标题名称:',
-          type: 'date'
+          headerTitle: 'key3:',
+          key: 'key3',
+          type: 'slot',
+          slot: 'key3',
         },
         {
-          headerTitle: '标题名称:',
+          headerTitle: 'key4:',
+          key: 'key4',
           type: 'checkbox',
           arr: getCheckboxArr()
         }
       ]
     },
-    {
-      cols: [
-        {
-          headerTitle: '标题名称:',
-          type: 'input'
-        },
-        {
-          headerTitle: '标题名称:',
-          type: 'checkbox',
-          arr: getCheckboxArr(5)
-        }
-      ]
-    }
   ]
 }
 
