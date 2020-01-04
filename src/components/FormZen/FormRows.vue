@@ -34,6 +34,7 @@
                             @getInnerValue="getInnerValue"
                             :max="col.max"
                             :required="col.required"
+                            :typeFlag="col.typeFlag"
                             :formValue="formData[col.key]">
             <template :slot="col.slot">
               <slot :name="col.slot"></slot>

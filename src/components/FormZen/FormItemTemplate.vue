@@ -28,14 +28,14 @@
 
           <RadioGroup v-if="type==='radio'"
                       v-model="innerValue">
-            <Radio v-for="(item,index) in arr"
+            <Radio v-for="(item,index) in innerArr"
                    :key="index"
                    :label="item.code">{{item.codeName}}</Radio>
           </RadioGroup>
 
           <CheckboxGroup v-if="type==='checkbox'"
                          v-model="innerValueArr">
-            <Checkbox v-for="(item,index) in arr"
+            <Checkbox v-for="(item,index) in innerArr"
                       :key="index"
                       :label="item.code">
               {{item.codeName}}
@@ -57,7 +57,7 @@
           <Select v-if="type==='select'"
                   clearable
                   v-model="innerValue">
-            <Option v-for="item in arr"
+            <Option v-for="item in innerArr"
                     :value="item.code"
                     :key="item.code">{{ item.codeName }}</Option>
           </Select>
@@ -80,6 +80,10 @@ import { oneOf } from './libs/tools'
 export default {
   name: 'FormItemTemplate',
   props: {
+    typeFlag: {
+      type: String,
+      default: ''
+    },
     required: {
       type: Boolean,
       defalut: false
@@ -151,6 +155,7 @@ export default {
   },
   data () {
     return {
+      innerArr: this.arr, // 码表数据
       innerValue: '',
       innerValueArr: []
     }
@@ -188,6 +193,17 @@ export default {
     }
   },
   methods: {
+    init () {
+      console.info('typeFlag', this.typeFlag, typeof this.typeFlag)
+      if (this.typeFlag !== '') {
+        this.getInnerArr(this.typeFlag)
+      }
+    },
+    getInnerArr (typeFlag) {
+      this.$api('http://localhost:3000/' + typeFlag).then(res => {
+        this.innerArr = res.data
+      })
+    },
     getFormItemTemplateStyle () {
       let out = {}
       if (this.itemsDirection === 'column') {
@@ -206,7 +222,9 @@ export default {
     }
   },
   filters: {},
-  created () { },
+  created () {
+    this.init()
+  },
   activated () { },
   mounted () { },
   beforeDestroy () { }
