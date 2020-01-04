@@ -10,7 +10,7 @@ const tData = {
     headerTitle: '标题Date:',
     key: 'key2',
     type: 'date',
-    required: true,
+    // required: true,
     max: true
   },
   d3: {

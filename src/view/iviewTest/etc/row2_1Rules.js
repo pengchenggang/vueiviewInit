@@ -4,9 +4,9 @@ export default {
   setVm,
   formZenRules: {
     key1: [{ required: true, message: '标题文字不能为空，请输入相应信息', trigger: 'blur' }],
-    key2: [{ required: true, message: 'Please fill in the user name', trigger: 'blur' }],
-    key3: [{ required: true, message: 'Please fill in the user name', trigger: 'blur' }],
-    key4: [{ required: true, message: 'Please fill in the user name', trigger: 'blur' }],
+    // key2: [{ required: true, message: 'key2 不能为空', trigger: 'blur' }],
+    key3: [{ required: true, message: 'key3 不能为空', trigger: 'blur' }],
+    key4: [{ required: true, message: 'key4 不能为空', trigger: 'blur' }],
     key5: [{ validator: validatorKey5, message: '下拉选框为必填选框', trigger: 'blur' }]
   }
 }
