@@ -1,20 +1,20 @@
 const tData = {
   d1: {
-    headerTitle: '标题<br>文字:',
+    headerTitle: '标题Input:',
     key: 'key1',
     type: 'input',
     required: true,
     max: true
   },
   d2: {
-    headerTitle: 'key2:',
+    headerTitle: '标题Date:',
     key: 'key2',
     type: 'date',
     required: true,
     max: true
   },
   d3: {
-    headerTitle: 'key3:',
+    headerTitle: '标题slot:',
     key: 'key3',
     type: 'slot',
     slot: 'key3',
@@ -22,11 +22,19 @@ const tData = {
     max: true
   },
   d4: {
-    headerTitle: 'key4:',
+    headerTitle: '标题checkbox:',
     key: 'key4',
     required: true,
     type: 'checkbox',
     // max: true,
+    arr: getCheckboxArr()
+  },
+  d5: {
+    headerTitle: '标题select:',
+    key: 'key5',
+    required: true,
+    type: 'select',
+    max: true,
     arr: getCheckboxArr()
   }
 
@@ -43,6 +51,11 @@ export default {
       cols: [
         tData.d3,
         tData.d4
+      ]
+    },
+    {
+      cols: [
+        tData.d5,
       ]
     },
   ]

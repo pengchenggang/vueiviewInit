@@ -10,12 +10,13 @@
               style="float:right;">确定</Button> -->
       <div style="clear:both;"></div>
     </div>
+
     <Form ref="formRef"
+          :rules="formRules.formZenRules"
           @submit.native.prevent
           @on-validate="onValidate"
           :show-message="false"
-          :model="innerFormData"
-          :rules="formRules">
+          :model="innerFormData">
       <div class="formZenTable">
 
         <FormRows :formRows="formRows"
@@ -36,6 +37,7 @@
 import FormRows from './FormRows'
 export default {
   name: 'FormZen',
+  mixins: [],
   props: {
     formErrs: {
       type: Array,
@@ -97,7 +99,7 @@ export default {
       handler () {
         this.$nextTick(() => {
           this.innerFormData = { ...this.formData }
-          console.info('this.innerFormData', this.innerFormData)
+          // console.info('this.innerFormData', this.innerFormData)
         })
       }
     }
@@ -135,7 +137,7 @@ export default {
       // this.formData[keyName] = val
       this.$set(this.innerFormData, keyName, val)
       this.$emit('update:formData', { ...this.innerFormData })
-      console.info('{ ...this.innerFormData }', { ...this.innerFormData })
+      // console.info('{ ...this.innerFormData }', { ...this.innerFormData })
     },
     // btnClickHandle () {
     //   console.info('formData', this.innerFormData)
@@ -171,6 +173,9 @@ export default {
   created () {
     // console.info('this.formRows', this.formRows)
     this.getSlotArr(this.formRows.rows)
+    // console.info('this.formRules', this.formRules)
+    // this.formRules.methods.validatorKey5()
+    this.formRules.setVm && this.formRules.setVm(this)
 
   },
   activated () { },

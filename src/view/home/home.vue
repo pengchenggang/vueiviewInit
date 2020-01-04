@@ -6,6 +6,7 @@
 <script>
 export default {
   name: '模板名称',
+  mixins: [],
   props: {},
   components: {},
   data () {

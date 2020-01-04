@@ -23,14 +23,14 @@
       <FormZen :formRows="row1"></FormZen> -->
       <h2>2-1.表格标题</h2>
       <FormZen ref="formZenRef"
+               :formRules="row2_1Rules"
                :formRows="row2_1"
-               :formData.sync="row2_1Data"
-               :formRules="row2_1Rules">
+               :formData.sync="row2_1Data">
         <template slot="top"
                   slot-scope="{ data, validate }">
           <Button type="primary"
                   @click="btnClickHandle(data, validate)"
-                  style="float:left;">确定1</Button>
+                  style="float:right;">确定1</Button>
         </template>
         <template slot="key3">
           <Input v-model="row2_1Data.key3"
@@ -56,6 +56,7 @@ import FormZen from '@/components/FormZen'
 import { row1, row2_1, row2_1Rules, row2_1Data, row2_2, row3_1, row6_2, row7, basic } from './etc'
 export default {
   name: 'iviewTest',
+  mixins: [],
   props: {},
   components: {
     FormZen
@@ -81,6 +82,7 @@ export default {
       validate(valid => {
         if (valid) {
           this.$Message.success('Success!')
+          console.info('data', data)
         }
       })
 

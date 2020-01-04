@@ -53,6 +53,15 @@
           <radioGroupZen v-if="type==='radioZen'"
                          :dataArr="arr"
                          v-model="innerValue"></radioGroupZen>
+
+          <Select v-if="type==='select'"
+                  clearable
+                  v-model="innerValue">
+            <Option v-for="item in arr"
+                    :value="item.code"
+                    :key="item.code">{{ item.codeName }}</Option>
+          </Select>
+
           <slot v-if="type==='slot'"
                 :name="slotName"></slot>
           <!-- {{ this.itemContent }} -->
@@ -149,11 +158,16 @@ export default {
   watch: {
     formValue: {
       handler (val) {
-        if (oneOf(this.type, ['input', 'radio', 'date', 'radioZen'])) {
+        if (oneOf(this.type, ['input', 'radio', 'date', 'radioZen', 'select'])) {
           this.innerValue = val
         }
         if (oneOf(this.type, ['checkbox'])) {
-          this.innerValueArr = val.split(',')
+          if (val !== undefined) {
+            this.innerValueArr = val.split(',')
+          } else {
+            this.innerValueArr = []
+          }
+
         }
       },
       immediate: true
@@ -203,6 +217,14 @@ export default {
 .max {
   .FormItemContent {
     padding: 0 !important;
+    .ivu-select {
+      height: 100% !important;
+      .ivu-select-selection {
+        height: 100% !important;
+        align-items: center;
+        display: flex;
+      }
+    }
     .ivu-date-picker {
       height: 100% !important;
       .ivu-icon {
