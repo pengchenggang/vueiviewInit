@@ -176,7 +176,7 @@ export default {
       this.$emit('getInnerValue', this.keyName, val)
     },
     innerValueArr (arr) {
-      console.info('innerValueArr', arr)
+      // console.info('innerValueArr', arr)
       this.$emit('getInnerValue', this.keyName, arr.join(','))
     }
   },

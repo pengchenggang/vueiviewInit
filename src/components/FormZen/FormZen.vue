@@ -113,7 +113,7 @@ export default {
       this.$refs.formRef.validate((valid) => { validT = valid })
 
       this.$nextTick(() => {
-        console.info('this.InnerFormErrs', this.InnerFormErrs)
+        // console.info('this.InnerFormErrs', this.InnerFormErrs)
         if (!validT) { this.showErrorTips(this.InnerFormErrs.join('<br>')) }
         callback && callback(validT)
       })
@@ -121,12 +121,12 @@ export default {
     showErrorTips (str) {
       this.$Message.error({
         closable: true,
-        duration: 0, // 3,
+        duration: 5, // 3,
         content: str
       })
     },
     onValidate (prop, status, error) {
-      console.info('onValidate (prop, status, error)', prop, status, error)
+      // console.info('onValidate (prop, status, error)', prop, status, error)
       if (!status) {
         this.InnerFormErrs.push(error)
         // this.$emit("update:formErrs", [...this.InnerFormErrs])
