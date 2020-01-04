@@ -119,6 +119,7 @@ export default {
       })
     },
     showErrorTips (str) {
+      this.$Message.destroy()
       this.$Message.error({
         closable: true,
         duration: 5, // 3,
