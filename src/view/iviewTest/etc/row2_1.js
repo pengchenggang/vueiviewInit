@@ -65,10 +65,6 @@ export default {
 }
 
 function getCheckboxArr (n = 2) {
-  // api('http://localhost:3000/select').then(res => {
-  //   console.info('res', res)
-  //   return res.data
-  // })
   let out = []
   for (let i = 0; i < n; i++) {
     out.push({

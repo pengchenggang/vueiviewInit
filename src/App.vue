@@ -3,7 +3,12 @@
     <!-- <img alt="Vue logo" src="./assets/logo.png">
     <HelloWorld msg="Welcome to Your Vue.js App"/> -->
     <!-- <oclock /> -->
-    <iviewTest />
+    <!-- <iviewTest /> -->
+    <div style="margin: 0 auto; width:500px;">
+      <!-- <Treeselect /> -->
+      <JsonServerDemo />
+    </div>
+
   </div>
 </template>
 
@@ -11,13 +16,17 @@
 // import HelloWorld from './components/HelloWorld.vue'
 // import oclock from './view/oclock/oclockPhone'
 // import oclock from './view/oclock/oclock'
-import iviewTest from './view/iviewTest'
+// import iviewTest from './view/iviewTest'
+// import Treeselect from './view/Treeselect'
+import JsonServerDemo from './view/JsonServerDemo'
 export default {
   name: 'app',
   components: {
     // HelloWorld
     // oclock
-    iviewTest
+    // iviewTest
+    // Treeselect
+    JsonServerDemo
   }
 }
 </script>

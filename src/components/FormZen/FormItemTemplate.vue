@@ -200,7 +200,7 @@ export default {
       }
     },
     getInnerArr (typeFlag) {
-      this.$api('http://localhost:3000/' + typeFlag).then(res => {
+      this.$api(typeFlag).then(res => {
         this.innerArr = res.data
       })
     },
